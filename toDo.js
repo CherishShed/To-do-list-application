@@ -62,7 +62,7 @@ function changeDate() {
     $("#year").text(today.getFullYear());
     $("#year").slideDown(800);
 
-    $(".timeToDo").html("<i class='fa-solid fa-stopwatch'></i> " + (new Date(Date.now()).toUTCString()))
+    // $(".timeToDo").html("<i class='fa-solid fa-stopwatch'></i> " + (new Date(Date.now()).toUTCString()))
     $("#clockTime").slideUp(10);
     $("#clockTime").text(today.getHours() + ":" + today.getMinutes() + " " + meridian);
     $("#clockTime").slideDown(800);
