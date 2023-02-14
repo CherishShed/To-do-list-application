@@ -144,4 +144,6 @@ setInterval(function () {
     checkMeridian();
     let x = new Date(Date.now());
     $("#clockTime").text(("0" + x.getHours()).slice(-2) + ":" + ("0" + x.getMinutes()).slice(-2) + " " + meridian);
-}, 500)
+}, 500);
+
+cosole.log("fiished loading");
