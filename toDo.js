@@ -8,7 +8,8 @@ var taskObject = JSON.parse(addedTask);
 
 // console.log(localStorage.tasks);
 for (i = 0; i < taskObject.length; i++) {
-    $(".mainList").append(taskObject[i]);
+    let listItem = "<li class='mainListItem'>" + taskObject[i] + "</li>";
+    $(".mainList").append(listItem);
 }
 // console.log(taskObject.indexOf("<li class='mainListItem'><i class='fa-solid fa-check'></i><span class='col-sm-5'>Buy Groceries</span > <span class='timeToDo col-sm-5'>8:45 AM</span ></li >"));
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -18,10 +19,14 @@ var prefix = "";
 var numOfTasks = document.querySelectorAll("li").length
 var iconElement = "<i class= fa-solid fa-check></i>"
 
-function storeTask(taskToStore) {
-    taskObject.push(taskToStore);
+function storeTask() {
+    taskObject = [];
+    for(i=0;i< document.querySelectorAll("li").length; i++){
+        taskObject.push(document.querySelectorAll("li")[i].innerHTML);    
+    }
     localStorage.setItem("tasks", JSON.stringify(taskObject));
-    $(".mainList").append(taskObject[taskObject.length - 1]);
+    console.log(localStorage.tasks);
+    
 }
 
 function checkMeridian() {
@@ -89,13 +94,14 @@ $(".addButton").click(function () {
     $(".newTask").show(500);
 })
 
-$(".close").click(function () {
+$(".newTask .close").click(function () {
     $(".newTask").hide(500);
 })
 
 $(".addNew").click(function () {
     var newTask = "<li class='mainListItem'><i class='fa-solid fa-check'></i><span class='col-sm-5'>" + $("#addedTask").val() + "</span><span class='timeToDo col-sm-5'><i class='fa-solid fa-stopwatch'></i> " + (new Date($("#time").val()).toUTCString()) + "</span>" + "<span class='close'>X</span></li>";
     // console.log(newTask);
+    $(".mainList").append(newTask);
     storeTask(newTask);
     numOfTasks++;
     taskCalc(numOfTasks);
@@ -105,13 +111,14 @@ $(".addNew").click(function () {
 })
 
 function addRemove() {
-    $(".mainList li").click(function () {
+    $(".mainList li").click(function (ev) {
         $(this.firstChild).toggleClass("icon")
 
         $(this).toggleClass("checked");
+        // console.log("'" + ev.target);
     })
 
-    $("li").append("<span class='close'>X</span>");
+    // $("li").append("<span class='close'>X</span>");
 
 
     $("li").mouseenter(function () {
@@ -125,17 +132,14 @@ function addRemove() {
     );
 
     $("span.close").click(function (ev) {
-        numOfTasks -= 1;
-        let ind = taskObject.indexOf(ev.parentElement);
-        console.log(JSON.stringify(this.parentElement))
-        console.log(taskObject.indexOf(this.parentElement));
-        console.log(ev);
-        taskObject.splice(ind, ind + 1)
-        taskCalc(numOfTasks);
+        let happenedTo = ev.target.parentElement;
         $(this.parentElement).slideUp(500, function () {
             $(ev.parentElement).css("display", "none");
+            $(happenedTo).remove();
+            storeTask();
+            numOfTasks=taskObject.length;
+            taskCalc(numOfTasks);
         });
-
     })
 }
 
@@ -145,5 +149,3 @@ setInterval(function () {
     let x = new Date(Date.now());
     $("#clockTime").text(("0" + x.getHours()).slice(-2) + ":" + ("0" + x.getMinutes()).slice(-2) + " " + meridian);
 }, 500);
-
-cosole.log("fiished loading");
