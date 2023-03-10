@@ -1,6 +1,12 @@
 var today = new Date(Date.now())
 var meridian = "";
-var addedTask = localStorage.getItem("tasks");
+if(localStorage.tasks){
+var addedTask = localStorage.getItem("tasks");    
+}
+else{
+    localStorage.setItem("tasks","[]")
+    var addedTask = localStorage.getItem("tasks");
+}
 // ,$(".mainList li"));
 
 var taskObject = JSON.parse(addedTask);
