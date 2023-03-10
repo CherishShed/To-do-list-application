@@ -1,5 +1,6 @@
 var today = new Date(Date.now())
 var meridian = "";
+
 if (localStorage.tasks) {
     var addedTask = localStorage.getItem("tasks");
 }
