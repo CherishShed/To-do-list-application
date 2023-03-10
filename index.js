@@ -1,6 +1,12 @@
 var today = new Date(Date.now())
 var meridian = "";
-var addedTask = localStorage.getItem("tasks");
+if (localStorage.tasks) {
+    var addedTask = localStorage.getItem("tasks");
+}
+else {
+    localStorage.setItem("tasks", "[]")
+    var addedTask = localStorage.getItem("tasks");
+}
 // ,$(".mainList li"));
 
 var taskObject = JSON.parse(addedTask);
@@ -21,12 +27,12 @@ var iconElement = "<i class= fa-solid fa-check></i>"
 
 function storeTask() {
     taskObject = [];
-    for(i=0;i< document.querySelectorAll("li").length; i++){
-        taskObject.push(document.querySelectorAll("li")[i].innerHTML);    
+    for (i = 0; i < document.querySelectorAll("li").length; i++) {
+        taskObject.push(document.querySelectorAll("li")[i].innerHTML);
     }
     localStorage.setItem("tasks", JSON.stringify(taskObject));
     console.log(localStorage.tasks);
-    
+
 }
 
 function checkMeridian() {
@@ -137,7 +143,7 @@ function addRemove() {
             $(ev.parentElement).css("display", "none");
             $(happenedTo).remove();
             storeTask();
-            numOfTasks=taskObject.length;
+            numOfTasks = taskObject.length;
             taskCalc(numOfTasks);
         });
     })

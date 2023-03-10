@@ -10,7 +10,7 @@ body {
 }
 
 .toDo {
-  width: 50%;
+  width: 60%;
   height: 70%;
   margin: auto;
   margin-top: 5%;
@@ -130,6 +130,7 @@ body {
   left: 35%;
   top: 20%;
   z-index: 10;
+  width: 50%;
   background: skyblue;
   border-radius: 30px;
   box-shadow: 2px 2px 10px 1px;
@@ -140,7 +141,7 @@ body {
 .newTask textarea,
 input {
   padding: 20px;
-  width: 500px;
+  width: 100%;
   display: block;
   border: 2px solid;
   border-color: bisque;
